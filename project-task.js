@@ -44,6 +44,10 @@ Step-by-Step:
 3. Return the filtered result.
 */
 
+const availableProducts = products.filter((neededTech) => !neededTech.inStock);
+const availableProductsPrice = products.filter((neededTech) => neededTech.price >= 400);
+
+
 
 /*
 🔹 Task 2: Transform Product Names
@@ -55,6 +59,16 @@ Step-by-Step:
 2. Extract and transform the `name` property to uppercase.
 3. Store the result in a new variable.
 */
+
+// const products = [
+//   { name: "Laptop", price: 1000, inStock: true },
+//   { name: "Phone", price: 500, inStock: false },
+//   { name: "Tablet", price: 800, inStock: true },
+//   { name: "Monitor", price: 300, inStock: true },
+//   { name: "Keyboard", price: 100, inStock: false },
+// ];
+
+let productsUpperCase = products.map((product) => product.name.toUpperCase());
 
 
 /*
@@ -70,6 +84,21 @@ Step-by-Step:
 3. Use this returned function inside a `map()` call to apply discounts to all products.
 */
 
+// function applyDiscount(discountPercent) {
+
+//     return 
+// }
+
+function applyDiscount(discountPercent) {
+  return function (product) {
+    const discountAmount = product.price * (discountPercent / 100);
+    return { ...product, discountedPrice: product.price - discountAmount };
+  };
+}
+const discount10 = applyDiscount(10);
+const discountedProducts = products.map(discount10);
+
+
 
 /*
 🔹 Task 4: Calculate Total Inventory Value
@@ -82,6 +111,10 @@ Step-by-Step:
 3. Store the total in a new variable.
 */
 
+const totalValueInStock = products.reduce((total, product) => {
+  return product.inStock ? total + product.price : total;
+}, 0);
+
 
 // ============================================
 // 🧪 Console Test Your Work
@@ -91,3 +124,9 @@ Step-by-Step:
 // console.log("Uppercased names:", ...);
 // console.log("Discounted products:", ...);
 // console.log("Total value in stock:", ...);
+
+console.log("Filtered products by availability: ", availableProducts);
+console.log("Filtered products by price >400: ", availableProductsPrice);
+console.log("Uppercased names: ", productsUpperCase);
+console.log("Discounted products: ", discountedProducts);
+console.log("Total value in stock: ", totalValueInStock);
